@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Choose Instagram; bot requests the video URL via ForceReply"
+              "text": "أرسل رابط الفيديو من Instagram"
             }
           }
         ],

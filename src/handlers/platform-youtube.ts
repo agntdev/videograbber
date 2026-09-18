@@ -1,17 +1,11 @@
 import { Composer } from "grammy";
+import type { Ctx } from "../bot.js";
+import { registerMainMenuItem } from "../toolkit/index.js";
+import { handleVideoText, choosePlatform } from "../video.js";
 
-// SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
-// Keep a LIVE registration (.command / .callbackQuery / …) so this feature is
-// never an empty stub. Replace the reply body with real logic + copy; if you
-// change the user-facing text, update tests/specs to match EXACTLY.
-// Do NOT rewrite src/bot.ts — buildBot() already auto-loads this module.
-// Menu: wire this into /start via registerMainMenuItem({ label: "YouTube", data: "platform:youtube" }) if the toolkit exposes it.
-
-const composer = new Composer();
-
-composer.callbackQuery("platform:youtube", async (ctx) => {
-  await ctx.answerCallbackQuery();
-  await ctx.reply("Choose YouTube as the source platform; bot asks for the video URL via ForceReply");
-});
-
+registerMainMenuItem({ label: "YouTube", data: "platform:youtube", order: 10 });
+const composer = new Composer<Ctx>();
+composer.callbackQuery("platform:youtube", (ctx) => choosePlatform(ctx, "youtube"));
+// One shared text route handles the pending ForceReply for every platform.
+composer.on("message:text", handleVideoText);
 export default composer;

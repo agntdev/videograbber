@@ -7,13 +7,41 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Choose YouTube as the source platform; bot asks for the video URL via ForceReply"
+              "text": "أرسل رابط الفيديو من YouTube"
             }
           }
         ],
         "send": {
           "callback": "platform:youtube"
         }
+      }
+    ]
+  },
+  {
+    "name": "YouTube accepts a direct media result",
+    "steps": [
+      {
+        "send": { "callback": "platform:youtube" },
+        "expect": [{ "method": "sendMessage", "payload": { "text": "أرسل رابط الفيديو من YouTube" } }]
+      },
+      {
+        "send": { "text": "https://www.youtube.com/watch/video.mp4" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "I’m checking that link now…" } },
+          { "method": "sendMessage", "payload": { "text": "Here’s the best download link I found:\nhttps://www.youtube.com/watch/video.mp4" } }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "YouTube rejects an unrelated link",
+    "steps": [
+      { "send": { "callback": "platform:youtube" }, "expect": [{ "method": "sendMessage" }] },
+      {
+        "send": { "text": "https://example.com/not-a-video" },
+        "expect": [
+          { "method": "sendMessage", "payload": { "text": "That doesn't look like a YouTube video link. Check it and try again." } }
+        ]
       }
     ]
   }

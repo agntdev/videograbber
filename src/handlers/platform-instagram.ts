@@ -1,17 +1,9 @@
 import { Composer } from "grammy";
+import type { Ctx } from "../bot.js";
+import { registerMainMenuItem } from "../toolkit/index.js";
+import { choosePlatform } from "../video.js";
 
-// SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
-// Keep a LIVE registration (.command / .callbackQuery / …) so this feature is
-// never an empty stub. Replace the reply body with real logic + copy; if you
-// change the user-facing text, update tests/specs to match EXACTLY.
-// Do NOT rewrite src/bot.ts — buildBot() already auto-loads this module.
-// Menu: wire this into /start via registerMainMenuItem({ label: "Instagram", data: "platform:instagram" }) if the toolkit exposes it.
-
-const composer = new Composer();
-
-composer.callbackQuery("platform:instagram", async (ctx) => {
-  await ctx.answerCallbackQuery();
-  await ctx.reply("Choose Instagram; bot requests the video URL via ForceReply");
-});
-
+registerMainMenuItem({ label: "Instagram", data: "platform:instagram", order: 30 });
+const composer = new Composer<Ctx>();
+composer.callbackQuery("platform:instagram", (ctx) => choosePlatform(ctx, "instagram"));
 export default composer;

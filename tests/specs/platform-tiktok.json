@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Choose TikTok; bot requests the video URL via ForceReply"
+              "text": "أرسل رابط الفيديو من TikTok"
             }
           }
         ],

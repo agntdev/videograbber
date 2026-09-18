@@ -1,17 +1,17 @@
 import { Composer } from "grammy";
+import type { Ctx } from "../bot.js";
+import { inlineButton, inlineKeyboard, registerMainMenuItem } from "../toolkit/index.js";
 
-// SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
-// Keep a LIVE registration (.command / .callbackQuery / …) so this feature is
-// never an empty stub. Replace the reply body with real logic + copy; if you
-// change the user-facing text, update tests/specs to match EXACTLY.
-// Do NOT rewrite src/bot.ts — buildBot() already auto-loads this module.
-// Menu: wire this into /start via registerMainMenuItem({ label: "Help", data: "help:open" }) if the toolkit exposes it.
+registerMainMenuItem({ label: "Help", data: "help:open", order: 50 });
 
-const composer = new Composer();
+const composer = new Composer<Ctx>();
 
 composer.callbackQuery("help:open", async (ctx) => {
   await ctx.answerCallbackQuery();
-  await ctx.reply("Show short usage instructions and a privacy note");
+  await ctx.editMessageText(
+    "Send a video link from YouTube, TikTok, Instagram, or Facebook and I’ll find the best available download link.\n\nI only keep minimal request details for 30 days. Your video is never uploaded or stored by this bot.",
+    { reply_markup: inlineKeyboard([[inlineButton("Back to menu", "menu:main")]]) },
+  );
 });
 
 export default composer;
