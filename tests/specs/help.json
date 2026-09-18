@@ -8,7 +8,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "ℹ️ Tap /start to open the menu, then pick what you want from the buttons.\n\nEverything in this bot is reachable by tapping — you don't need to remember any commands."
+              "text": "Send a video link from YouTube, TikTok, Instagram, or Facebook and I’ll find the best available download link.\n\nI only keep minimal request details for 30 days. Your video is never uploaded or stored by this bot."
             }
           }
         ]

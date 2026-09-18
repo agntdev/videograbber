@@ -5,10 +5,7 @@
       {
         "expect": [
           {
-            "method": "sendMessage",
-            "payload": {
-              "text": "Show short usage instructions and a privacy note"
-            }
+            "method": "editMessageText"
           }
         ],
         "send": {
